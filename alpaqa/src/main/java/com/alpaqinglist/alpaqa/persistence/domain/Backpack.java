@@ -17,7 +17,7 @@ public class Backpack {
 
     @ManyToMany
     private User user;
-    private Long weight;
+    private double volume;
 
     @Column(length = 200)
     private String description;
@@ -27,10 +27,10 @@ public class Backpack {
     public Backpack() {
     }
 
-    public Backpack(String name, User user, Long weight, String description, String image, List<Item> items) {
+    public Backpack(String name, User user, double volume, String description, String image, List<Item> items) {
         this.name = name;
         this.user = user;
-        this.weight = weight;
+        this.volume = volume;
         this.description = description;
         this.image = image;
         this.items = items;
@@ -60,12 +60,12 @@ public class Backpack {
         this.user = user;
     }
 
-    public Long getWeight() {
-        return weight;
+    public double getVolume() {
+        return volume;
     }
 
-    public void setWeight(Long weight) {
-        this.weight = weight;
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     public String getDescription() {
@@ -97,10 +97,10 @@ public class Backpack {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Backpack backpack = (Backpack) o;
-        return Objects.equals(id, backpack.id) &&
+        return Double.compare(backpack.volume, volume) == 0 &&
+                Objects.equals(id, backpack.id) &&
                 Objects.equals(name, backpack.name) &&
                 Objects.equals(user, backpack.user) &&
-                Objects.equals(weight, backpack.weight) &&
                 Objects.equals(description, backpack.description) &&
                 Objects.equals(image, backpack.image) &&
                 Objects.equals(items, backpack.items);
@@ -108,6 +108,6 @@ public class Backpack {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, user, weight, description, image, items);
+        return Objects.hash(id, name, user, volume, description, image, items);
     }
 }

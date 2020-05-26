@@ -1,6 +1,5 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,18 +13,18 @@ public class Item {
     private Long id;
 
     private String name;
-    @Column(unique = true)
     private Long weight;
-
+    private double volume;
     private String description;
     private String image;
 
     public Item() {
     }
 
-    public Item(String name, Long weight, String description, String image) {
+    public Item(String name, Long weight, double volume, String description, String image) {
         this.name = name;
         this.weight = weight;
+        this.volume = volume;
         this.description = description;
         this.image = image;
     }
@@ -54,6 +53,14 @@ public class Item {
         this.weight = weight;
     }
 
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -75,7 +82,8 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) &&
+        return Double.compare(item.volume, volume) == 0 &&
+                Objects.equals(id, item.id) &&
                 Objects.equals(name, item.name) &&
                 Objects.equals(weight, item.weight) &&
                 Objects.equals(description, item.description) &&
@@ -84,6 +92,6 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, weight, description, image);
+        return Objects.hash(id, name, weight, volume, description, image);
     }
 }
