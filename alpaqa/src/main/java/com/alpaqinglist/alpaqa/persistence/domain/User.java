@@ -13,11 +13,12 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String username;
+
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
     private String password;
 
     private Set<Backpack> backpacks = new HashSet<>();
