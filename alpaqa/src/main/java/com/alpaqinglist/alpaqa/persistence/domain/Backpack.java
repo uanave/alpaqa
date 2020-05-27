@@ -14,8 +14,7 @@ public class Backpack {
     @GeneratedValue
     private Long id;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column(length = 200)
@@ -41,7 +40,7 @@ public class Backpack {
         this.items = items;
     }
 
-    public Backpack(String name, String description) {
+    public Backpack(@NotNull String name, String description) {
         this.name = name;
         this.description = description;
     }
