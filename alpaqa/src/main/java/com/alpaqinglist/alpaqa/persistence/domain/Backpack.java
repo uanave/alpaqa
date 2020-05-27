@@ -1,5 +1,7 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ public class Backpack {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     @Column(unique = true)
     private String name;
 
