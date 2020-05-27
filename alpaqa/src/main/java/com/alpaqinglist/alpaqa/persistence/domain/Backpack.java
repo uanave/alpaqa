@@ -21,6 +21,7 @@ public class Backpack {
 
     @Column(length = 200)
     private String description;
+    private String category;
     private String image;
     private List<Item> items = new ArrayList<>();
 
@@ -92,6 +93,14 @@ public class Backpack {
         this.items = items;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,12 +111,13 @@ public class Backpack {
                 Objects.equals(name, backpack.name) &&
                 Objects.equals(user, backpack.user) &&
                 Objects.equals(description, backpack.description) &&
+                Objects.equals(category, backpack.category) &&
                 Objects.equals(image, backpack.image) &&
                 Objects.equals(items, backpack.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, user, volume, description, image, items);
+        return Objects.hash(id, name, user, volume, description, category, image, items);
     }
 }
