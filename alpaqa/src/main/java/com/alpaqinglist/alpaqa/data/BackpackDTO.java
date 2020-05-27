@@ -1,13 +1,30 @@
 package com.alpaqinglist.alpaqa.data;
 
+import com.alpaqinglist.alpaqa.persistence.domain.Item;
+
+import java.util.List;
 import java.util.Objects;
 
 public class BackpackDTO {
 
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private String type;
+    private List<Item> items;
+    private String imagePath;
+    private int totalWeight;
+
+    public BackpackDTO(long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public BackpackDTO(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public BackpackDTO(Long id, String name, String description, String type) {
         this.id = id;
@@ -19,8 +36,36 @@ public class BackpackDTO {
     public BackpackDTO() {
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(int totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setId(Long id) {
@@ -56,14 +101,17 @@ public class BackpackDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BackpackDTO that = (BackpackDTO) o;
-        return Objects.equals(id, that.id) &&
+        return id == that.id &&
+                totalWeight == that.totalWeight &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(type, that.type);
+                Objects.equals(type, that.type) &&
+                Objects.equals(items, that.items) &&
+                Objects.equals(imagePath, that.imagePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type);
+        return Objects.hash(id, name, description, type, items, imagePath, totalWeight);
     }
 }
