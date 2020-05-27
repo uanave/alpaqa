@@ -52,11 +52,11 @@ public class Backpack {
         this.name = name;
     }
 
-    public User getUser() {
+    User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 
