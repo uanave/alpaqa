@@ -1,9 +1,6 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
@@ -21,7 +18,10 @@ public class User {
 
     private String password;
 
+    @ElementCollection
     private Set<Backpack> backpacks = new HashSet<>();
+
+    @ElementCollection
     private List<Item> items = new ArrayList<>();
 
     public User() {
