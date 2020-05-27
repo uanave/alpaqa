@@ -15,23 +15,24 @@ public class Backpack {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany
-    private User user;
     private double volume;
 
     @Column(length = 200)
     private String description;
+    private String category;
     private String image;
+
+    @ManyToMany
     private List<Item> items = new ArrayList<>();
 
     public Backpack() {
     }
 
-    public Backpack(String name, User user, double volume, String description, String image, List<Item> items) {
+    public Backpack(String name, double volume, String description, String category, String image, List<Item> items) {
         this.name = name;
-        this.user = user;
         this.volume = volume;
         this.description = description;
+        this.category = category;
         this.image = image;
         this.items = items;
     }
@@ -52,14 +53,6 @@ public class Backpack {
         this.name = name;
     }
 
-    User getUser() {
-        return user;
-    }
-
-    void setUser(User user) {
-        this.user = user;
-    }
-
     public double getVolume() {
         return volume;
     }
@@ -74,6 +67,14 @@ public class Backpack {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImage() {
@@ -100,14 +101,14 @@ public class Backpack {
         return Double.compare(backpack.volume, volume) == 0 &&
                 Objects.equals(id, backpack.id) &&
                 Objects.equals(name, backpack.name) &&
-                Objects.equals(user, backpack.user) &&
                 Objects.equals(description, backpack.description) &&
+                Objects.equals(category, backpack.category) &&
                 Objects.equals(image, backpack.image) &&
                 Objects.equals(items, backpack.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, user, volume, description, image, items);
+        return Objects.hash(id, name, volume, description, category, image, items);
     }
 }
