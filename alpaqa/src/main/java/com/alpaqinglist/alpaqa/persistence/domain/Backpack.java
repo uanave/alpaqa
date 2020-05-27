@@ -21,6 +21,8 @@ public class Backpack {
     private String description;
     private String category;
     private String image;
+
+    @ManyToMany
     private List<Item> items = new ArrayList<>();
 
     public Backpack() {
