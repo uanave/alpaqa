@@ -1,5 +1,6 @@
 package com.alpaqinglist.alpaqa.logic;
 
+import com.alpaqinglist.alpaqa.exception.BackpackNotFoundException;
 import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
@@ -20,6 +21,9 @@ public class ItemAdder {
 
     public void saveItemInBackpack(Long id, Item item) {
         Optional<Backpack> oBackpack = backpackRepository.findById(id);
+        if(oBackpack.isEmpty()){
+            throw new BackpackNotFoundException("no backpack found while trying to add an item");
+        }
         Item itemSaved = itemRepository.save(item);
         oBackpack.ifPresent(backpack -> {
             backpack.getItems().add(itemSaved);

@@ -2,6 +2,7 @@ package com.alpaqinglist.alpaqa.data;
 
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 
