@@ -1,7 +1,5 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

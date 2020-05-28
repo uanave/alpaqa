@@ -21,7 +21,7 @@ class NewItemEndpointTest {
     Long backpackId = 1L;
     String url = "/backpack/" + backpackId + "/add-new-item";
 
-    Item item = new Item("test", 0L, 0, "test", "test");
+    Item item = new Item("test", 0L, 0, "testD", 1, "testP", "testIm");
 
     @Test
     void addItem() {
