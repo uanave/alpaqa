@@ -9,6 +9,7 @@ import java.util.Objects;
 public class BackpackDTO {
 
     private long id;
+    @NotBlank
     private String name;
     private String description;
     private String type;
@@ -25,6 +26,13 @@ public class BackpackDTO {
     public BackpackDTO(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public BackpackDTO(long id, String name, String description, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.items = items;
     }
 
     public BackpackDTO(Long id, String name, String description, String type) {

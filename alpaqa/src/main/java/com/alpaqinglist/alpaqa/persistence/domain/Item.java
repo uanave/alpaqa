@@ -1,8 +1,11 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +14,7 @@ public class Item {
     @Id
     @GeneratedValue
     private Long id;
-
+    @NotBlank
     private String name;
     private Long weight;
     private double volume;
