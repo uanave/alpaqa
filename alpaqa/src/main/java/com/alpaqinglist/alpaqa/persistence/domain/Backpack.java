@@ -51,6 +51,13 @@ public class Backpack {
         this.description = description;
     }
 
+    public Backpack(Long id, String name, int weight, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.weight = weight;
+        this.items = items;
+    }
+
     public Long getId() {
         return id;
     }
