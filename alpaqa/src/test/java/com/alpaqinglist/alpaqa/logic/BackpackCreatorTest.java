@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.matches;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
@@ -36,9 +39,11 @@ class BackpackCreatorTest {
 
 
     @Test
-    void create() {
+    void createWithNonExistingBackpackName() {
         backpackDTO.setName(backpack.getName());
         backpackDTO.setDescription(backpack.getDescription());
+        when(repository.existsByName(backpackDTO.getName()))
+                .thenReturn(false);
         when(translator.translateToBackpack(backpackDTO))
                 .thenReturn(backpack);
         when(repository.save(backpack))
@@ -46,11 +51,22 @@ class BackpackCreatorTest {
         when(translator.translateToBackpackTDO(backpack))
                 .thenReturn(backpackDTO);
 
-        BackpackDTO result = creator.create(this.backpackDTO);
+        Optional<BackpackDTO> oResult = creator.create(backpackDTO);
+        verify(repository).existsByName(backpackDTO.getName());
         verify(translator).translateToBackpack(this.backpackDTO);
         verify(repository).save(backpack);
         verify(translator).translateToBackpackTDO(backpack);
-        assertEquals(backpackDTO, result);
+        assertEquals(backpackDTO, oResult.get());
 
+    }
+    @Test
+    void createWithExistingBackpackName() {
+        backpackDTO.setName(backpack.getName());
+        backpackDTO.setDescription(backpack.getDescription());
+        when(repository.existsByName(backpackDTO.getName()))
+                .thenReturn(true);
+        Optional<BackpackDTO> oBackpackDTO = creator.create(this.backpackDTO);
+        verify(repository).existsByName(this.backpackDTO.getName());
+        assertTrue(oBackpackDTO.isEmpty());
     }
 }
