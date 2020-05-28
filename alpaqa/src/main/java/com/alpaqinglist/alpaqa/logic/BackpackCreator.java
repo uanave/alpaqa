@@ -5,6 +5,7 @@ import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,8 @@ public class BackpackCreator {
         Backpack backpackSaved = repository.save(backpack);
         BackpackDTO savedBackpackDTO = translator.translateToBackpackTDO(backpackSaved);
         return Optional.of(savedBackpackDTO);
+    }
+    public List<Backpack> getAll(){
+        return repository.findAll();
     }
 }

@@ -2,10 +2,10 @@ package com.alpaqinglist.alpaqa.controller;
 
 import com.alpaqinglist.alpaqa.data.BackpackDTO;
 import com.alpaqinglist.alpaqa.logic.BackpackCreator;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/backpack")
@@ -15,10 +15,17 @@ public class BackpackEndpoint {
     public BackpackEndpoint(BackpackCreator backpackCreator) {
         this.backpackCreator = backpackCreator;
     }
+
     @PostMapping
-    BackpackDTO createNewBackpack(@RequestBody BackpackDTO backpackDTO){
+    BackpackDTO createNewBackpack(@RequestBody BackpackDTO backpackDTO) {
 
-        return backpackCreator.create(backpackDTO);
+        return backpackCreator.create(backpackDTO).orElseGet(null);
 
+    }
+
+    @GetMapping
+    List<Backpack> getAllBackpacks() {
+
+        return backpackCreator.getAll();
     }
 }
