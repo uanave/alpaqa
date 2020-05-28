@@ -26,6 +26,13 @@ public class BackpackDTO {
         this.description = description;
     }
 
+    public BackpackDTO(long id, String name, String description, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.items = items;
+    }
+
     public BackpackDTO(Long id, String name, String description, String type) {
         this.id = id;
         this.name = name;

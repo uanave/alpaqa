@@ -15,6 +15,7 @@ public class Backpack {
     private Long id;
 
     @Column(unique = true, nullable = false)
+
     private String name;
 
     @Column(length = 200)
