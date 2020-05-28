@@ -9,6 +9,7 @@ import java.util.Objects;
 public class BackpackDTO {
 
     private long id;
+    @NotBlank
     private String name;
     private String description;
     private String type;
