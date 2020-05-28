@@ -17,7 +17,8 @@ public class BackpackTranslator {
         return new BackpackDTO(
                 backpack.getId(),
                 backpack.getName(),
-                backpack.getDescription()
+                backpack.getDescription(),
+                backpack.getItems()
         );
     }
 }
