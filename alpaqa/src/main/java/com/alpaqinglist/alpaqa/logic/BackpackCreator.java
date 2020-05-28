@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BackpackCreator {
@@ -27,7 +28,10 @@ public class BackpackCreator {
         BackpackDTO savedBackpackDTO = translator.translateToBackpackTDO(backpackSaved);
         return Optional.of(savedBackpackDTO);
     }
-    public List<Backpack> getAll(){
-        return repository.findAll();
+    public List<BackpackDTO> getAll(){
+
+        return repository.findAll().stream()
+                .map(translator::translateToBackpackTDO)
+                .collect(Collectors.toList());
     }
 }

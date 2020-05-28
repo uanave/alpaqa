@@ -2,7 +2,6 @@ package com.alpaqinglist.alpaqa.controller;
 
 import com.alpaqinglist.alpaqa.data.BackpackDTO;
 import com.alpaqinglist.alpaqa.logic.BackpackCreator;
-import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +28,9 @@ public class BackpackEndpoint {
     }
 
     @GetMapping
-    List<Backpack> getAllBackpacks() {
+    List<BackpackDTO> getAllBackpacks() {
 
         return backpackCreator.getAll();
     }
+
 }
