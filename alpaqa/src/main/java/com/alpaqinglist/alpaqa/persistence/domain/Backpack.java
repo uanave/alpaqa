@@ -3,6 +3,7 @@ package com.alpaqinglist.alpaqa.persistence.domain;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,10 +16,10 @@ public class Backpack {
     private Long id;
 
     @Column(unique = true, nullable = false)
-
     private String name;
 
-    @Column(length = 200)
+    @Column(length = 200, nullable = false)
+    @NotEmpty
     private String description;
     private int weight;
     private double volume;

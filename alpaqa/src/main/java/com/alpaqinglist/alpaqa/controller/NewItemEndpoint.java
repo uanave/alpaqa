@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/backpack")
 @Validated
@@ -19,7 +21,9 @@ public class NewItemEndpoint {
     }
 
     @PutMapping("/{backpackId}/add-new-item")
-    void addItem(@PathVariable Long backpackId, @RequestBody Item item) {
+
+    void addItem(@PathVariable Long backpackId, @Valid @RequestBody Item item) {
+
         itemAdder.saveItemInBackpack(backpackId, item);
     }
 
