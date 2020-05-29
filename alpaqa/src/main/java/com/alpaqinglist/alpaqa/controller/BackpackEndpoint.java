@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class BackpackEndpoint {
     }
 
     @PostMapping
-    ResponseEntity<BackpackDTO> createNewBackpack(@RequestBody BackpackDTO backpackDTO) {
+    ResponseEntity<BackpackDTO> createNewBackpack(@Valid @RequestBody BackpackDTO backpackDTO) {
 
         Optional<BackpackDTO> oBackpack = backpackCreator.create(backpackDTO);
         return oBackpack.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))

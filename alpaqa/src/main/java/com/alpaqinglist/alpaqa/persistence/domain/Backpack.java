@@ -1,6 +1,7 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Backpack {
     private String name;
 
     @Column(length = 200, nullable = false)
+    @Max(value = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty
     private String description;
 
