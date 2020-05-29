@@ -20,7 +20,7 @@ class BackpackContentEndpointTest {
     BackpackService service;
 
     Long backpackID = 1L;
-    String url = "/backpack/" + backpackID + "/items";
+    String url = "/backpacks/" + backpackID + "/items";
 
     @Test
     void getItems() {

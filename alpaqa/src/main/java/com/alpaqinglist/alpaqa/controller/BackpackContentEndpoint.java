@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/backpack")
+@RequestMapping("/backpacks")
 public class BackpackContentEndpoint {
     private final BackpackService service;
 
