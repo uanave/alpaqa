@@ -2,82 +2,57 @@ package com.alpaqinglist.alpaqa.data;
 
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 
 public class BackpackDTO {
 
     private long id;
-    @NotBlank
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String description;
     private String type;
     private List<Item> items;
     private String imagePath;
     private int totalWeight;
 
-    public BackpackDTO(long id, String name, String description) {
+    public BackpackDTO() {
+    }
+
+    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(String name, String description) {
+    public BackpackDTO(@NotEmpty String name, @NotEmpty String description) {
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(long id, String name, String description, List<Item> items) {
+    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description, List<Item> items) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.items = items;
     }
 
-    public BackpackDTO(Long id, String name, String description, String type) {
+    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description, String type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
     }
 
-    public BackpackDTO() {
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public int getTotalWeight() {
-        return totalWeight;
-    }
-
-    public void setTotalWeight(int totalWeight) {
-        this.totalWeight = totalWeight;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
     public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setId(Long id) {
         this.id = id;
     }
 
@@ -103,6 +78,30 @@ public class BackpackDTO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(int totalWeight) {
+        this.totalWeight = totalWeight;
     }
 
     @Override
