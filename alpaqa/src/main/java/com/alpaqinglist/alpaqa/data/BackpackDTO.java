@@ -9,7 +9,7 @@ public class BackpackDTO {
     private long id;
     @NotEmpty(message = "name cannot be empty")
     private String name;
-    @Max(value = 200, message = "description cannot be longer than 200 characters")
+//    @Max(value = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty(message = "description cannot be empty")
     private String description;
     private String type;

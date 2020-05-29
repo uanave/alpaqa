@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -21,11 +23,26 @@ class NewItemEndpointTest {
     Long backpackId = 1L;
     String url = "/backpacks/" + backpackId + "/add-new-item";
 
-    Item item = new Item("test", 0L, 0, "testD", 1, "testP", "testIm");
 
     @Test
     void addItem() {
+        Item item = new Item("test", 1L, 1, "testD", 1, "testP", "testIm");
+
         restTemplate.put(url, item);
-        Mockito.verify(itemAdder).saveItemInBackpack(backpackId, item);
+        verify(itemAdder).saveItemInBackpack(backpackId, item);
+    }
+    @Test
+    void addItemVerificationEmptyName() {
+        Item item = new Item("", 1L, 1, "testD", 1, "testP", "testIm");
+
+        restTemplate.put(url, item);
+        verifyNoInteractions(itemAdder);
+    }
+    @Test
+    void addItemVerificationEmptyWeight() {
+        Item item = new Item("test", 0L, 1, "testD", 1, "testP", "testIm");
+
+        restTemplate.put(url, item);
+        verifyNoInteractions(itemAdder);
     }
 }
