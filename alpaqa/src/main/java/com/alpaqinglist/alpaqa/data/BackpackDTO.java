@@ -1,16 +1,16 @@
 package com.alpaqinglist.alpaqa.data;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 public class BackpackDTO {
     private long id;
-    @NotEmpty
+    @NotEmpty(message = "name cannot be empty")
     private String name;
-
-
-    @NotEmpty
+    @Max(value = 200, message = "description cannot be longer than 200 characters")
+    @NotEmpty(message = "description cannot be empty")
     private String description;
     private String type;
     private List<Item> items;
@@ -21,25 +21,25 @@ public class BackpackDTO {
     public BackpackDTO() {
     }
 
-    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(@NotEmpty String name, @NotEmpty String description) {
+    public BackpackDTO(@NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description, List<Item> items) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, List<Item> items) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.items = items;
     }
 
-    public BackpackDTO(long id, @NotEmpty String name, @NotEmpty String description, String type) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String type) {
         this.id = id;
         this.name = name;
         this.description = description;
