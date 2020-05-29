@@ -3,6 +3,7 @@ package com.alpaqinglist.alpaqa.persistence.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class Backpack {
     private String name;
 
     @Column(length = 200, nullable = false)
-//    @Max(value = 200, message = "description cannot be longer than 200 characters")
+    @Size(max = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty
     private String description;
 
@@ -34,12 +35,12 @@ public class Backpack {
     public Backpack() {
     }
 
-    public Backpack(@NotEmpty String name, @NotEmpty String description) {
+    public Backpack(@NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Backpack(Long id, @NotEmpty String name, @NotEmpty String description) {
+    public Backpack(Long id, @NotEmpty String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -1,15 +1,18 @@
 package com.alpaqinglist.alpaqa.data;
+
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
+
 public class BackpackDTO {
     private long id;
     @NotEmpty(message = "name cannot be empty")
     private String name;
-//    @Max(value = 200, message = "description cannot be longer than 200 characters")
+    @Size(max = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty(message = "description cannot be empty")
     private String description;
     private String type;
@@ -21,25 +24,25 @@ public class BackpackDTO {
     public BackpackDTO() {
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(@NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
+    public BackpackDTO(@NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description) {
         this.name = name;
         this.description = description;
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, List<Item> items) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, List<Item> items) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.items = items;
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Max(value = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String type) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String type) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,6 +52,7 @@ public class BackpackDTO {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -56,18 +60,23 @@ public class BackpackDTO {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -109,6 +118,7 @@ public class BackpackDTO {
                 Objects.equals(items, that.items) &&
                 Objects.equals(imagePath, that.imagePath);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, type, items, imagePath, totalWeight);
