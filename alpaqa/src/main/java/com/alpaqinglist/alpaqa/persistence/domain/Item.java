@@ -3,7 +3,9 @@ package com.alpaqinglist.alpaqa.persistence.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -12,19 +14,29 @@ public class Item {
     @Id
     @GeneratedValue
     private Long id;
-    @NotBlank
+
+    @NotEmpty
     private String name;
+
+    @Positive
+    @NotNull
     private Long weight;
+
+    @Positive
     private double volume;
+
+    @NotEmpty
     private String description;
     private int quantity;
+
+    @NotEmpty
     private String priority;
     private String image;
 
     public Item() {
     }
 
-    public Item(String name, Long weight, double volume, String description, int quantity, String priority, String image) {
+    public Item(@NotEmpty String name, @Positive @NotNull Long weight, @Positive double volume, @NotEmpty String description, int quantity, @NotEmpty String priority, String image) {
         this.name = name;
         this.weight = weight;
         this.volume = volume;
@@ -34,13 +46,13 @@ public class Item {
         this.image = image;
     }
 
-    public Item(String name) {
+    public Item(@NotEmpty String name) {
         this.name = name;
     }
 
-    public Item(Long id, String name) {
-        this.id = id;
+    public Item(@NotEmpty String name, @Positive @NotNull Long weight) {
         this.name = name;
+        this.weight = weight;
     }
 
     public Long getId() {
@@ -83,14 +95,6 @@ public class Item {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -105,6 +109,14 @@ public class Item {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Entity
@@ -11,11 +12,14 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    @NotEmpty
     private String username;
 
     @Column(unique = true)
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String password;
 
     @ElementCollection
