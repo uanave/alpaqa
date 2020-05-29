@@ -11,4 +11,4 @@ spring:
       ddl-auto: update
 test:
   backpackEndpoint:
-    url: "/backpack"
+    url: "/backpacks"
