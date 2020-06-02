@@ -19,9 +19,9 @@ public class BackpackTranslator {
                 backpack.getId(),
                 backpack.getName(),
                 backpack.getDescription(),
-                backpack.getImage(),
-                backpack.getItems(),
                 backpack.getCategory(),
+                backpack.getItems(),
+                backpack.getImage(),
                 backpack.getWeight()
         );
     }
