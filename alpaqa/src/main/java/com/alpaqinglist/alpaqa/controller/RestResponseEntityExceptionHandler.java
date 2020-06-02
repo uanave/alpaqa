@@ -5,9 +5,11 @@ import com.alpaqinglist.alpaqa.data.error.ApiError;
 import com.alpaqinglist.alpaqa.data.error.ApiSubError;
 import com.alpaqinglist.alpaqa.data.error.ApiValidationError;
 import com.alpaqinglist.alpaqa.exception.EntityNotFoundException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -52,6 +54,18 @@ public class RestResponseEntityExceptionHandler extends
     public ResponseEntity<Object> entityNotFoundHandler(EntityNotFoundException e) {
         String error = "Entity Error";
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST, error, e), HttpStatus.BAD_REQUEST);
+    }
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST,"Http input not readable",ex),HttpStatus.BAD_REQUEST);
+
+    }
+
+
+    @ExceptionHandler({InvalidFormatException.class})
+    public ResponseEntity<String> invalidFormatExceptionHandler(InvalidFormatException e) {
+
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

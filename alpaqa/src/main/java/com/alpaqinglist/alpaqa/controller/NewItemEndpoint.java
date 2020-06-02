@@ -30,16 +30,5 @@ public class NewItemEndpoint {
 
 
 
-    @ExceptionHandler({HttpMessageNotReadableException.class})
-    public ResponseEntity<String> httpMessageNotReadableHandler(HttpMessageNotReadableException e) {
 
-
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler({InvalidFormatException.class})
-    public ResponseEntity<String> invalidFormatExceptionHandler(InvalidFormatException e) {
-
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }
