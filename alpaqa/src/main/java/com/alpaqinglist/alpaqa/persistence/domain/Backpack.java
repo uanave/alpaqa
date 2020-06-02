@@ -1,7 +1,6 @@
 package com.alpaqinglist.alpaqa.persistence.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -35,12 +34,33 @@ public class Backpack {
     public Backpack() {
     }
 
+    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, int weight, String category, String image, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.category = category;
+        this.image = image;
+        this.items = items;
+    }
+
+    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, int weight, double volume, String category, String image, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.volume = volume;
+        this.category = category;
+        this.image = image;
+        this.items = items;
+    }
+
     public Backpack(@NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Backpack(Long id, @NotEmpty String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
+    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -2,7 +2,6 @@ package com.alpaqinglist.alpaqa.data;
 
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -15,7 +14,7 @@ public class BackpackDTO {
     @Size(max = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty(message = "description cannot be empty")
     private String description;
-    private String type;
+    private String category;
     private List<Item> items;
     private String imagePath;
     private int totalWeight;
@@ -24,11 +23,11 @@ public class BackpackDTO {
     public BackpackDTO() {
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String type, List<Item> items, String imagePath, int totalWeight) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String category, List<Item> items, String imagePath, int totalWeight) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.category = category;
         this.items = items;
         this.imagePath = imagePath;
         this.totalWeight = totalWeight;
@@ -60,11 +59,11 @@ public class BackpackDTO {
         this.items = items;
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String type) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name,@Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String category) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.category = category;
     }
 
     public long getId() {
@@ -91,12 +90,12 @@ public class BackpackDTO {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public List<Item> getItems() {
@@ -132,13 +131,13 @@ public class BackpackDTO {
                 totalWeight == that.totalWeight &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(type, that.type) &&
+                Objects.equals(category, that.category) &&
                 Objects.equals(items, that.items) &&
                 Objects.equals(imagePath, that.imagePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, items, imagePath, totalWeight);
+        return Objects.hash(id, name, description, category, items, imagePath, totalWeight);
     }
 }

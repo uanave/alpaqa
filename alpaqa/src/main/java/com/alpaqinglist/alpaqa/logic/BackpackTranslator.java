@@ -9,9 +9,15 @@ public class BackpackTranslator {
 
     public Backpack translateToBackpack(BackpackDTO backpackDTO) {
         return new Backpack(
+                backpackDTO.getId(),
                 backpackDTO.getName(),
-                backpackDTO.getDescription()
-        );
+                backpackDTO.getDescription(),
+                backpackDTO.getTotalWeight(),
+                backpackDTO.getCategory(),
+                backpackDTO.getImagePath(),
+                backpackDTO.getItems()
+                );
+
     }
 
     public BackpackDTO translateToBackpackTDO(Backpack backpack) {
