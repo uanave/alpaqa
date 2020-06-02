@@ -1,6 +1,7 @@
 package com.alpaqinglist.alpaqa.controller;
 
 import com.alpaqinglist.alpaqa.data.BackpackDTO;
+import com.alpaqinglist.alpaqa.data.error.ApiError;
 import com.alpaqinglist.alpaqa.logic.BackpackCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,12 @@ public class BackpackEndpoint {
     }
 
     @PostMapping
-    ResponseEntity<BackpackDTO> createNewBackpack(@Valid @RequestBody BackpackDTO backpackDTO) {
+    ResponseEntity<Object> createNewBackpack(@Valid @RequestBody BackpackDTO backpackDTO) {
 
         Optional<BackpackDTO> oBackpack = backpackCreator.create(backpackDTO);
-        return oBackpack.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.BAD_REQUEST));
+
+        return oBackpack.map(dto -> new ResponseEntity<>((Object)dto, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(new ApiError( HttpStatus.BAD_REQUEST,"Error while creating backpack"), HttpStatus.BAD_REQUEST));
 
     }
 

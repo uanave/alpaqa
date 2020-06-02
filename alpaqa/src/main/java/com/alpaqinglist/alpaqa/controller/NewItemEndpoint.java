@@ -1,6 +1,6 @@
 package com.alpaqinglist.alpaqa.controller;
 
-import com.alpaqinglist.alpaqa.exception.BackpackNotFoundException;
+import com.alpaqinglist.alpaqa.exception.EntityNotFoundException;
 import com.alpaqinglist.alpaqa.logic.ItemAdder;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -28,11 +28,7 @@ public class NewItemEndpoint {
         itemAdder.saveItemInBackpack(backpackId, item);
     }
 
-    @ExceptionHandler({BackpackNotFoundException.class})
-    public ResponseEntity<String> backpackNotFoundHandler(BackpackNotFoundException e) {
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public ResponseEntity<String> httpMessageNotReadableHandler(HttpMessageNotReadableException e) {
