@@ -7,18 +7,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class BackpackTranslator {
 
-    public Backpack translateToBackpack(BackpackDTO backpackDTO){
+    public Backpack translateToBackpack(BackpackDTO backpackDTO) {
         return new Backpack(
                 backpackDTO.getName(),
                 backpackDTO.getDescription()
         );
     }
-    public BackpackDTO translateToBackpackTDO(Backpack backpack){
+
+    public BackpackDTO translateToBackpackTDO(Backpack backpack) {
         return new BackpackDTO(
                 backpack.getId(),
                 backpack.getName(),
                 backpack.getDescription(),
-                backpack.getItems()
+                backpack.getImage(),
+                backpack.getItems(),
+                backpack.getCategory(),
+                backpack.getWeight()
         );
     }
 }
