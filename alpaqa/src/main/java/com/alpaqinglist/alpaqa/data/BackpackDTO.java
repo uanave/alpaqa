@@ -18,12 +18,13 @@ public class BackpackDTO {
     private List<Item> items;
     private String imagePath;
     private int totalWeight;
+    private double volume;
 
 
     public BackpackDTO() {
     }
 
-    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String category, List<Item> items, String imagePath, int totalWeight) {
+    public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, String category, List<Item> items, String imagePath, int totalWeight, double volume) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,6 +32,15 @@ public class BackpackDTO {
         this.items = items;
         this.imagePath = imagePath;
         this.totalWeight = totalWeight;
+        this.volume = volume;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     public BackpackDTO(long id, @NotEmpty(message = "name cannot be empty") String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty(message = "description cannot be empty") String description, List<Item> items, String imagePath) {

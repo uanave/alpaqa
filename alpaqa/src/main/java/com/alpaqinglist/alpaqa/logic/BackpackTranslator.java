@@ -13,10 +13,12 @@ public class BackpackTranslator {
                 backpackDTO.getName(),
                 backpackDTO.getDescription(),
                 backpackDTO.getTotalWeight(),
+                backpackDTO.getVolume(),
                 backpackDTO.getCategory(),
                 backpackDTO.getImagePath(),
                 backpackDTO.getItems()
-                );
+
+        );
 
     }
 
@@ -28,7 +30,8 @@ public class BackpackTranslator {
                 backpack.getCategory(),
                 backpack.getItems(),
                 backpack.getImage(),
-                backpack.getWeight()
+                backpack.getWeight(),
+                backpack.getVolume()
         );
     }
 }
