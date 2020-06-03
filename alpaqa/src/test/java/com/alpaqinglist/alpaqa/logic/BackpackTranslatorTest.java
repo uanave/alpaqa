@@ -13,8 +13,8 @@ class BackpackTranslatorTest {
 
     @Test
     void translateToBackpack() {
-        BackpackDTO backpackDTO = new BackpackDTO("test", "testDescription");
-        Backpack expected = new Backpack("test", "testDescription");
+        BackpackDTO backpackDTO = new BackpackDTO(1L, "test", "testDescription", "TestCat", List.of(),"TestImage", 1, 1L);
+        Backpack expected = new Backpack(1L, "test", "testDescription", 1, 1, "TestCat", "TestImage", List.of());
         Backpack result = translator.translateToBackpack(backpackDTO);
         assertEquals(expected, result);
     }
