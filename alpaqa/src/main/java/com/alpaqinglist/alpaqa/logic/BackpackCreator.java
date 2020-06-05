@@ -5,6 +5,7 @@ import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class BackpackCreator {
     public List<BackpackDTO> getAll(){
 
         return repository.findAll().stream()
+                .sorted(Comparator.comparing(Backpack::getId).reversed())
                 .map(translator::translateToBackpackTDO)
                 .collect(Collectors.toList());
     }
