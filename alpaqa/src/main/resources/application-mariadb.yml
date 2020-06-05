@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mariadb://corona-time.giize.com:45826/alpaqa?useSSL=false
+    username: alpaqa
+    password: b6hniaO11HQXGxa0ZEVT
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
