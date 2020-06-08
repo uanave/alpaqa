@@ -35,8 +35,7 @@ public class BackpackContentEndpoint {
         Optional<Item> oItem = itemRepository.findById(itemId);
         if (oItem.isPresent()) {
             item.setId(itemId);
-            itemRepository.save(item);
-            return item;
+            return itemRepository.save(item);
         } else {
             throw new EntityNotFoundException("No item found");
         }
