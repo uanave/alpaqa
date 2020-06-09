@@ -76,19 +76,21 @@ class BackpackServiceTest {
         verify(itemRepository).findById(itemId);
         verify(itemRepository).save(item);
     }
+
     @Test
-    void getItem(){
+    void getItem() {
         when(itemRepository.findById(itemId))
                 .thenReturn(Optional.of(item));
         Item result = service.getItem(itemId);
         verify(itemRepository).findById(itemId);
         assertEquals(item, result);
     }
+
     @Test
-    void getNonExistingItem(){
+    void getNonExistingItem() {
         when(itemRepository.findById(itemId))
                 .thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, ()->{
+        assertThrows(EntityNotFoundException.class, () -> {
             service.getItem(itemId);
         });
         verify(itemRepository).findById(itemId);
@@ -138,5 +140,44 @@ class BackpackServiceTest {
                 .thenReturn(isItemExists);
         boolean result = service.deleteItem(backpackID, itemId);
         assertFalse(result);
+    }
+
+    @Test
+    void getExistingBackpack() {
+        when(backpackRepository.findById(backpackID))
+                .thenReturn(Optional.of(backpack));
+        service.getBackpack(backpackID);
+        verify(backpackRepository).findById(backpackID);
+    }
+    @Test
+    void getNonExistingBackpack() {
+        when(backpackRepository.findById(backpackID))
+                .thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, ()->{
+            service.getBackpack(backpackID);
+        });
+        verify(backpackRepository).findById(backpackID);
+    }
+    @Test
+    void updateExistingBackpack(){
+        backpack.setId(backpackID);
+        Backpack expected = new Backpack(backpackID,"testName","testDescription");
+        when(backpackRepository.findById(backpackID))
+                .thenReturn(Optional.of(backpack));
+        when(backpackRepository.save(backpack))
+                .thenReturn(backpack);
+        assertNotEquals(expected, backpack);
+        Backpack result = service.updateBackpack(backpackID, expected);
+        verify(backpackRepository).findById(backpackID);
+        verify(backpackRepository).save(this.backpack);
+        assertEquals(expected, result);
+    }
+    @Test
+    void updateNonExistingBackpack(){
+        when(backpackRepository.findById(backpackID))
+                .thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, ()->{
+            service.updateBackpack(backpackID, backpack);
+        });
     }
 }
