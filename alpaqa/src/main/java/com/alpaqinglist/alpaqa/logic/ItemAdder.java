@@ -29,17 +29,5 @@ public class ItemAdder {
         Backpack backpack = oBackpack.get();
         backpack.getItems().add(itemSaved);
         backpackRepository.save(backpack);
-
-//        try {
-//            oBackpack.ifPresentOrElse(backpack -> {
-//                        backpack.getItems().add(itemSaved);
-//                        backpackRepository.save(backpack);
-//                    },
-//                    () ->
-//                throw new Exception()
-//                    );
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 }

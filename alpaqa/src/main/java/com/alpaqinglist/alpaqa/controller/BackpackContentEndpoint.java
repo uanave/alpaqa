@@ -32,12 +32,6 @@ public class BackpackContentEndpoint {
 
     @PutMapping("/{backpackId}/items/{itemId}")
     Item updateItem(@PathVariable Long itemId, @RequestBody Item item) {
-        Optional<Item> oItem = itemRepository.findById(itemId);
-        if (oItem.isPresent()) {
-            item.setId(itemId);
-            return itemRepository.save(item);
-        } else {
-            throw new EntityNotFoundException("No item found");
-        }
+        return service.updateItem(itemId, item);
     }
 }
