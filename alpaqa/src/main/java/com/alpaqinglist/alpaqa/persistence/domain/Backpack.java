@@ -28,7 +28,7 @@ public class Backpack {
     private String category;
     private String image;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Item> items = new ArrayList<>();
 
     public Backpack() {
