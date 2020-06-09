@@ -21,16 +21,16 @@ public class BackpackCreator {
     }
 
     public Optional<BackpackDTO> create(BackpackDTO backpackDTO) {
-        if(repository.existsByName(backpackDTO.getName())) {
-        return Optional.empty();
+        if (repository.existsByName(backpackDTO.getName())) {
+            return Optional.empty();
         }
         Backpack backpack = translator.translateToBackpack(backpackDTO);
         Backpack backpackSaved = repository.save(backpack);
         BackpackDTO savedBackpackDTO = translator.translateToBackpackTDO(backpackSaved);
         return Optional.of(savedBackpackDTO);
     }
-    public List<BackpackDTO> getAll(){
 
+    public List<BackpackDTO> getAll() {
         return repository.findAll().stream()
                 .sorted(Comparator.comparing(Backpack::getId).reversed())
                 .map(translator::translateToBackpackTDO)

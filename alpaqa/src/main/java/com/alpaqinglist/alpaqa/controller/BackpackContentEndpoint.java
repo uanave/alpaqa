@@ -1,13 +1,11 @@
 package com.alpaqinglist.alpaqa.controller;
 
-import com.alpaqinglist.alpaqa.exception.EntityNotFoundException;
 import com.alpaqinglist.alpaqa.logic.BackpackService;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 import com.alpaqinglist.alpaqa.persistence.repository.ItemRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/backpacks")

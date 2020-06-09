@@ -22,8 +22,8 @@ public class ItemAdder {
     public void saveItemInBackpack(Long id, Item item) {
 
         Optional<Backpack> oBackpack = backpackRepository.findById(id);
-        if(oBackpack.isEmpty()){
-            throw new EntityNotFoundException("no backpack with the id: "+id+" found");
+        if (oBackpack.isEmpty()) {
+            throw new EntityNotFoundException("no backpack with the id: " + id + " found");
         }
         Item itemSaved = itemRepository.save(item);
         Backpack backpack = oBackpack.get();

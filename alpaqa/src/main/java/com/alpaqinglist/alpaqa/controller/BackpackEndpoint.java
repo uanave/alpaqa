@@ -24,15 +24,12 @@ public class BackpackEndpoint {
     ResponseEntity<Object> createNewBackpack(@Valid @RequestBody BackpackDTO backpackDTO) {
 
         Optional<BackpackDTO> oBackpack = backpackCreator.create(backpackDTO);
-
-        return oBackpack.map(dto -> new ResponseEntity<>((Object)dto, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(new ApiError( HttpStatus.BAD_REQUEST,"Error while creating backpack"), HttpStatus.BAD_REQUEST));
-
+        return oBackpack.map(dto -> new ResponseEntity<>((Object) dto, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST, "Error while creating backpack"), HttpStatus.BAD_REQUEST));
     }
 
     @GetMapping
     List<BackpackDTO> getAllBackpacks() {
-
         return backpackCreator.getAll();
     }
 

@@ -13,7 +13,6 @@ public class BackpackDeleter {
 
     public BackpackDeleter(BackpackRepository backpackRepository) {
         this.backpackRepository = backpackRepository;
-
     }
 
     public void delete(Long id) {
@@ -21,8 +20,5 @@ public class BackpackDeleter {
         oBackpack.ifPresent(e -> {
             backpackRepository.delete(e);
         });
-
     }
-
-
 }
