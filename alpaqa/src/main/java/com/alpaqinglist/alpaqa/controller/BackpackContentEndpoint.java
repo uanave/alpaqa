@@ -3,8 +3,6 @@ package com.alpaqinglist.alpaqa.controller;
 import com.alpaqinglist.alpaqa.logic.BackpackService;
 import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
-import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
-import com.alpaqinglist.alpaqa.persistence.repository.ItemRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +11,9 @@ import java.util.List;
 @RequestMapping("/backpacks")
 public class BackpackContentEndpoint {
     private final BackpackService service;
-    private final ItemRepository itemRepository;
-    private final BackpackRepository backpackRepository;
 
-    public BackpackContentEndpoint(BackpackService service, ItemRepository itemRepository, BackpackRepository backpackRepository) {
+    public BackpackContentEndpoint(BackpackService service) {
         this.service = service;
-        this.itemRepository = itemRepository;
-        this.backpackRepository = backpackRepository;
     }
 
     @GetMapping("/{id}/items")
