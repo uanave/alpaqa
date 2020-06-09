@@ -36,7 +36,35 @@ public class BackpackService {
             item.setId(itemId);
             return itemRepository.save(item);
         } else {
-            throw new EntityNotFoundException("No item found");
+            throw new EntityNotFoundException("No item found!");
+        }
+    }
+
+    public Item getItem(Long itemId) {
+        Optional<Item> oItem = itemRepository.findById(itemId);
+        if (oItem.isPresent()) {
+            return oItem.get();
+        } else {
+            throw new EntityNotFoundException("No item found!");
+        }
+    }
+
+    public Backpack getBackpack(Long backpackId) {
+        Optional<Backpack> oBackpack = backpackRepository.findById(backpackId);
+        if (oBackpack.isPresent()) {
+            return oBackpack.get();
+        } else {
+            throw new EntityNotFoundException("No backpack found!");
+        }
+    }
+
+    public Backpack updateBackpack(Long backpackId, Backpack backpack) {
+        Optional<Backpack> oBackpack = backpackRepository.findById(backpackId);
+        if (oBackpack.isPresent()) {
+            backpack.setId(backpackId);
+            return backpackRepository.save(backpack);
+        } else {
+            throw new EntityNotFoundException("No backpack found!");
         }
     }
 }
