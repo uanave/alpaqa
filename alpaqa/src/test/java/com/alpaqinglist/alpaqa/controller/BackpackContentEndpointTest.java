@@ -1,7 +1,7 @@
 package com.alpaqinglist.alpaqa.controller;
 
-import com.alpaqinglist.alpaqa.exception.EntityNotFoundException;
 import com.alpaqinglist.alpaqa.logic.BackpackService;
+import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
 import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
 import com.alpaqinglist.alpaqa.persistence.repository.ItemRepository;
@@ -12,9 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -36,9 +33,11 @@ class BackpackContentEndpointTest {
     String url = "/backpacks/" + backpackID + "/items";
     Long itemId = 1L;
     String itemUrl = url + "/" + itemId;
+    String backpackUrl = "/backpacks/" + backpackID;
 
 
     Item item = new Item();
+    Backpack backpack = new Backpack();
 
     @Test
     void getItems() {
@@ -58,9 +57,23 @@ class BackpackContentEndpointTest {
     void updateItem() {
         when(service.updateItem(itemId, item))
                 .thenReturn(item);
-        restTemplate.put(itemUrl, item ,Item.class);
+        restTemplate.put(itemUrl, item, Item.class);
         verify(service).updateItem(itemId, item);
     }
 
+    @Test
+    void getBackpack() {
+        when(service.getBackpack(backpackID))
+                .thenReturn(backpack);
+        restTemplate.getForObject(backpackUrl, Backpack.class);
+        verify(service).getBackpack(backpackID);
+    }
 
+    @Test
+    void updateBackpack() {
+        when(service.updateBackpack(backpackID, backpack))
+                .thenReturn(backpack);
+        restTemplate.put(backpackUrl, backpack, Backpack.class);
+        verify(service).updateBackpack(backpackID, backpack);
+    }
 }
