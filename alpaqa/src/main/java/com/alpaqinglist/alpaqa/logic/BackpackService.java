@@ -61,12 +61,14 @@ public class BackpackService {
     public Backpack updateBackpack(Long backpackId, Backpack backpack) {
         Optional<Backpack> oBackpack = backpackRepository.findById(backpackId);
         if (oBackpack.isPresent()) {
-            backpack.setId(backpackId);
-            return backpackRepository.save(backpack);
+            oBackpack.get().setName(backpack.getName());
+            oBackpack.get().setDescription(backpack.getDescription());
+            return backpackRepository.save(oBackpack.get());
         } else {
             throw new EntityNotFoundException("No backpack found!");
         }
     }
+
     public boolean deleteItem(Long backpackID, Long itemId) {
         if (!backpackRepository.existsById(backpackID) || !itemRepository.existsById(itemId)) {
             return false;
