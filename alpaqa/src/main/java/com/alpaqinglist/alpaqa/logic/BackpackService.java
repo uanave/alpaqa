@@ -39,4 +39,16 @@ public class BackpackService {
             throw new EntityNotFoundException("No item found");
         }
     }
+    public boolean deleteItem(Long backpackID, Long itemId) {
+        if (!backpackRepository.existsById(backpackID) && !itemRepository.existsById(itemId)) {
+            return false;
+        }
+        Backpack backpack = backpackRepository.findById(backpackID).get();
+        Item item = itemRepository.findById(itemId).get();
+        backpack.getItems().remove(item);
+        backpackRepository.save(backpack);
+        itemRepository.deleteById(itemId);
+        return true;
+    }
+
 }
