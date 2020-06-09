@@ -68,7 +68,7 @@ public class BackpackService {
         }
     }
     public boolean deleteItem(Long backpackID, Long itemId) {
-        if (!backpackRepository.existsById(backpackID) && !itemRepository.existsById(itemId)) {
+        if (!backpackRepository.existsById(backpackID) || !itemRepository.existsById(itemId)) {
             return false;
         }
         Backpack backpack = backpackRepository.findById(backpackID).get();

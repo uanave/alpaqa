@@ -47,40 +47,20 @@ class BackpackContentEndpointTest {
     }
 
     @Test
-    void getExistingItem() {
-        Item expected = item;
-        expected.setId(itemId);
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.of(item));
-        when(itemRepository.save(item))
+    void getItem() {
+        when(service.getItem(itemId))
                 .thenReturn(item);
         restTemplate.getForObject(itemUrl, Item.class);
-        assertEquals(expected, item);
-        verify(itemRepository).findById(itemId);
-        verify(itemRepository).save(item);
+        verify(service).getItem(itemId);
     }
 
     @Test
-    void getNonExistingItem() {
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.empty());
-        restTemplate.getForObject(itemUrl, null);
-        verify(itemRepository).findById(itemId);
-    }
-
-    @Test
-    void updateItemIfPresent() {
-        when(itemRepository.findById(itemId))
-                .thenReturn((Optional.of(item)));
+    void updateItem() {
+        when(service.updateItem(itemId, item))
+                .thenReturn(item);
         restTemplate.put(itemUrl, item ,Item.class);
-        verify(itemRepository).findById(itemId);
+        verify(service).updateItem(itemId, item);
     }
-    @Test
-    void updateItemIfNotPresent() {
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.empty());
-        restTemplate.put(itemUrl, item ,void.class);
-        verify(itemRepository).findById(itemId);
-    }
+
 
 }
