@@ -22,37 +22,15 @@ public class Backpack {
     @Size(max = 200, message = "description cannot be longer than 200 characters")
     @NotEmpty
     private String description;
-
-    private int weight;
-    private double volume;
     private String category;
-    private String image;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Item> items = new ArrayList<>();
+    private String image;
+    private int weight;
+    private double volume;
 
     public Backpack() {
-    }
-
-    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, int weight, String category, String image, List<Item> items) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.weight = weight;
-        this.category = category;
-        this.image = image;
-        this.items = items;
-    }
-
-    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, int weight, double volume, String category, String image, List<Item> items) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.weight = weight;
-        this.volume = volume;
-        this.category = category;
-        this.image = image;
-        this.items = items;
     }
 
     public Backpack(@NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description) {
@@ -66,10 +44,18 @@ public class Backpack {
         this.description = description;
     }
 
-    public Backpack(Long id, @NotEmpty String name, int weight, List<Item> items) {
+    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, List<Item> items, String image) {
         this.id = id;
         this.name = name;
-        this.weight = weight;
+        this.description = description;
+        this.items = items;
+        this.image = image;
+    }
+
+    public Backpack(Long id, @NotEmpty String name, @Size(max = 200, message = "description cannot be longer than 200 characters") @NotEmpty String description, List<Item> items) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.items = items;
     }
 
@@ -97,6 +83,30 @@ public class Backpack {
         this.description = description;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public int getWeight() {
         return weight;
     }
@@ -113,30 +123,6 @@ public class Backpack {
         this.volume = volume;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,12 +134,12 @@ public class Backpack {
                 Objects.equals(name, backpack.name) &&
                 Objects.equals(description, backpack.description) &&
                 Objects.equals(category, backpack.category) &&
-                Objects.equals(image, backpack.image) &&
-                Objects.equals(items, backpack.items);
+                Objects.equals(items, backpack.items) &&
+                Objects.equals(image, backpack.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, weight, volume, category, image, items);
+        return Objects.hash(id, name, description, category, items, image, weight, volume);
     }
 }

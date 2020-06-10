@@ -1,16 +1,12 @@
 package com.alpaqinglist.alpaqa.controller;
 
-import com.alpaqinglist.alpaqa.data.BackpackDTO;
-import com.alpaqinglist.alpaqa.logic.BackpackCreator;
+import com.alpaqinglist.alpaqa.logic.BackpackEditor;
+import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.xml.ResourceEntityResolver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -24,23 +20,54 @@ class BackpackEndpointTest {
     TestRestTemplate testRestTemplate;
 
     @MockBean
-    BackpackCreator backpackCreator;
+    BackpackEditor backpackEditor;
 
-    @Value("${test.backpackEndpoint.url}")
-    String url;
+    Long backpackID = 1L;
+    String itemsUrl = "/backpacks/" + backpackID + "/items";
+    Long itemId = 1L;
+    String itemUrl = itemsUrl + "/" + itemId;
+    String backpackUrl = "/backpacks/" + backpackID;
 
+    Backpack backpack = new Backpack();
 
     @Test
-    void createNewBackpack() {
-        BackpackDTO backpackTDO = new BackpackDTO("test", "test");
-        when(backpackCreator.create(backpackTDO))
-                .thenReturn(Optional.of(backpackTDO));
+    void addBackpack() {
+        Backpack backpack = new Backpack("test", "test");
+        when(backpackEditor.create(backpack))
+                .thenReturn(Optional.of(backpack));
 
-        testRestTemplate.postForObject(url, backpackTDO, void.class);
+        testRestTemplate.postForObject("/backpacks/", backpack, void.class);
 
-        verify(backpackCreator).create(backpackTDO);
+        verify(backpackEditor).create(backpack);
+    }
 
+    @Test
+    void getBackpack() {
+        when(backpackEditor.getBackpack(backpackID))
+                .thenReturn(backpack);
+        testRestTemplate.getForObject(backpackUrl, Backpack.class);
+        verify(backpackEditor).getBackpack(backpackID);
+    }
+
+    @Test
+    void updateBackpack() {
+        when(backpackEditor.updateBackpack(backpackID, backpack))
+                .thenReturn(backpack);
+        testRestTemplate.put(backpackUrl, backpack, Backpack.class);
+        verify(backpackEditor).updateBackpack(backpackID, backpack);
+    }
+
+    @Test
+    void deleteBackpack() {
+        Long backpackID = 1L;
+        String url = "/backpacks/" + backpackID;
+
+        testRestTemplate.delete(url);
+        verify(backpackEditor).delete(backpackID);
 
     }
 
+    @Test
+    void getAllBackpacks() {
+    }
 }

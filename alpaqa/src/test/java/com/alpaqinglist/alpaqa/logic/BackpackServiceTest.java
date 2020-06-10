@@ -1,183 +1,70 @@
 package com.alpaqinglist.alpaqa.logic;
 
-import com.alpaqinglist.alpaqa.exception.EntityNotFoundException;
-import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
-import com.alpaqinglist.alpaqa.persistence.domain.Item;
-import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
-import com.alpaqinglist.alpaqa.persistence.repository.ItemRepository;
-import com.alpaqinglist.alpaqa.persistence.repository.UserRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 @SpringBootTest(webEnvironment = NONE)
 class BackpackServiceTest {
     @Autowired
-    BackpackService service;
-    @MockBean
-    BackpackRepository backpackRepository;
-    @MockBean
-    ItemRepository itemRepository;
-    @MockBean
-    UserRepository userRepository;
+    BackpackService backpackService;
 
-    Long backpackID = 1L;
-    Backpack backpack = new Backpack();
-    Long itemId = 1L;
-    Item item = new Item();
+    @MockBean
+    BackpackEditor backpackEditor;
+
+    @MockBean
+    ItemEditor itemEditor;
 
     @Test
-    void backpackItemsPreviewIfExists() {
-        Item item = new Item("test", 1L);
-        List<Item> expected = List.of(item);
-        Backpack backpack = new Backpack(backpackID, "test", 1, expected);
-
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.of(backpack));
-        List<Item> result = service.backpackItemsPreview(backpackID);
-        verify(backpackRepository).findById(backpackID);
-        assertEquals(expected, result);
-    }
-
-    @Test
-    void backpackItemsPreviewNonExistingBackpack() {
-        List<Item> expected = new ArrayList<>();
-
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.empty());
-        List<Item> result = service.backpackItemsPreview(backpackID);
-        verify(backpackRepository).findById(backpackID);
-        assertEquals(expected, result);
+    void getItem() {
+        itemEditor.getItem(any());
+        verify(itemEditor).getItem(any());
     }
 
     @Test
     void updateItem() {
-        Long itemId = 1L;
-        Item item = new Item();
-        Item expected = item;
-        expected.setId(itemId);
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.of(item));
-        when(itemRepository.save(item))
-                .thenReturn(item);
-        service.updateItem(itemId, item);
-        verify(itemRepository).findById(itemId);
-        verify(itemRepository).save(item);
+        itemEditor.updateItem(any(), any());
+        verify(itemEditor).updateItem(any(), any());
     }
 
     @Test
-    void getItem() {
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.of(item));
-        Item result = service.getItem(itemId);
-        verify(itemRepository).findById(itemId);
-        assertEquals(item, result);
+    void deleteItem() {
+        itemEditor.deleteItem(any(), any());
+        verify(itemEditor).deleteItem(any(), any());
     }
 
     @Test
-    void getNonExistingItem() {
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> {
-            service.getItem(itemId);
-        });
-        verify(itemRepository).findById(itemId);
+    void getAllItems() {
+        itemEditor.getAllItems(any());
+        verify(itemEditor).getAllItems(any());
     }
 
     @Test
-    void deleteItemIfExists() {
-        Item itemWithId = item;
-        itemWithId.setId(itemId);
-        List<Item> items = new ArrayList<>(List.of(itemWithId));
-        backpack.setId(backpackID);
-        backpack.setItems(items);
-        when(backpackRepository.existsById(backpackID))
-                .thenReturn(true);
-        when(itemRepository.existsById(itemId))
-                .thenReturn(true);
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.of(backpack));
-        when(itemRepository.findById(itemId))
-                .thenReturn(Optional.of(item));
-
-        boolean hasItemsList = backpack.getItems().contains(item);
-        assertTrue(hasItemsList);
-        boolean result = service.deleteItem(backpackID, itemId);
-        hasItemsList = backpack.getItems().contains(item);
-
-        verify(backpackRepository).existsById(backpackID);
-        verify(itemRepository).existsById(itemId);
-        verify(backpackRepository).findById(itemId);
-        verify(itemRepository).findById(itemId);
-        verify(backpackRepository).save(backpack);
-        verify(itemRepository).deleteById(itemId);
-        assertTrue(result);
-        assertFalse(hasItemsList);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "false, false",
-            "true, false",
-            "false, true"
-    })
-    void deleteItemWithNonExistingItemOrBackpack(boolean isBackpackExists, boolean isItemExists) {
-        when(backpackRepository.existsById(backpackID))
-                .thenReturn(isBackpackExists);
-        when(itemRepository.existsById(itemId))
-                .thenReturn(isItemExists);
-        boolean result = service.deleteItem(backpackID, itemId);
-        assertFalse(result);
+    void getBackpack() {
+        backpackEditor.getBackpack(any());
+        verify(backpackEditor).getBackpack(any());
     }
 
     @Test
-    void getExistingBackpack() {
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.of(backpack));
-        service.getBackpack(backpackID);
-        verify(backpackRepository).findById(backpackID);
+    void updateBackpack() {
+        backpackEditor.updateBackpack(any(), any());
+        verify(backpackEditor).updateBackpack(any(), any());
     }
+
     @Test
-    void getNonExistingBackpack() {
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, ()->{
-            service.getBackpack(backpackID);
-        });
-        verify(backpackRepository).findById(backpackID);
+    void deleteBackpack() {
+        backpackEditor.delete(any());
+        verify(backpackEditor).delete(any());
     }
+
     @Test
-    void updateExistingBackpack(){
-        backpack.setId(backpackID);
-        Backpack expected = new Backpack(backpackID,"testName","testDescription");
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.of(backpack));
-        when(backpackRepository.save(backpack))
-                .thenReturn(backpack);
-        assertNotEquals(expected, backpack);
-        Backpack result = service.updateBackpack(backpackID, expected);
-        verify(backpackRepository).findById(backpackID);
-        verify(backpackRepository).save(this.backpack);
-        assertEquals(expected, result);
-    }
-    @Test
-    void updateNonExistingBackpack(){
-        when(backpackRepository.findById(backpackID))
-                .thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, ()->{
-            service.updateBackpack(backpackID, backpack);
-        });
+    void getAllBackpacks() {
+        backpackEditor.getAll();
+        verify(backpackEditor).getAll();
     }
 }
