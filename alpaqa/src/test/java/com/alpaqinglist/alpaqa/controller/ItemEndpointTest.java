@@ -2,6 +2,9 @@ package com.alpaqinglist.alpaqa.controller;
 
 import com.alpaqinglist.alpaqa.logic.ItemEditor;
 import com.alpaqinglist.alpaqa.persistence.domain.Item;
+import com.alpaqinglist.alpaqa.persistence.repository.BackpackRepository;
+import com.alpaqinglist.alpaqa.persistence.repository.ItemRepository;
+import com.alpaqinglist.alpaqa.persistence.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +22,12 @@ class ItemEndpointTest {
 
     @MockBean
     ItemEditor itemEditor;
+    @MockBean
+    ItemRepository itemRepository;
+    @MockBean
+    BackpackRepository backpackRepository;
+    @MockBean
+    UserRepository userRepository;
 
     Long backpackId = 1L;
 
@@ -73,5 +82,12 @@ class ItemEndpointTest {
                 .thenReturn(item);
         testRestTemplate.put(itemUrl, item, Item.class);
         verify(itemEditor).updateItem(itemId, item);
+    }
+
+    @Test
+    void deleteItem() {
+
+        testRestTemplate.delete(itemUrl, void.class);
+        verify(itemEditor).deleteItem(backpackID, itemId);
     }
 }

@@ -35,4 +35,9 @@ public class ItemEndpoint {
     List<Item> getItems(@PathVariable Long backpackId) {
         return itemEditor.getAllItems(backpackId);
     }
+
+    @DeleteMapping("/{backpackId}/items/{itemId}")
+    void deleteItem(@PathVariable Long backpackId, @PathVariable Long itemId) {
+        itemEditor.deleteItem(backpackId, itemId);
+    }
 }
