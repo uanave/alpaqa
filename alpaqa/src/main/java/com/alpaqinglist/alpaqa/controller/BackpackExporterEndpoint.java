@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/backpacks")
-public class BackpackExporter {
+public class BackpackExporterEndpoint {
     private final BackpackEditor backpackEditor;
 
-    public BackpackExporter(BackpackEditor backpackEditor) {
+    public BackpackExporterEndpoint(BackpackEditor backpackEditor) {
         this.backpackEditor = backpackEditor;
     }
 
