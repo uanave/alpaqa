@@ -77,15 +77,16 @@ class BackpackEditorTest {
     @Test
     void updateExistingBackpack() {
         backpack.setId(backpackID);
-        Backpack expected = new Backpack(backpackID, "testName", "testDescription");
+        Backpack expected = new Backpack(backpackID, "UpdatedName", "UpdatedDescription");
+        Backpack input = new Backpack(null, "UpdatedName", "UpdatedDescription");
         when(backpackRepository.findById(backpackID))
                 .thenReturn(Optional.of(backpack));
         when(backpackRepository.save(backpack))
                 .thenReturn(backpack);
         assertNotEquals(expected, backpack);
-        Backpack result = backpackEditor.updateBackpack(backpackID, expected);
+        Backpack result = backpackEditor.updateBackpack(backpackID, input);
         verify(backpackRepository).findById(backpackID);
-        verify(backpackRepository).save(this.backpack);
+        verify(backpackRepository).save(backpack);
         assertEquals(expected, result);
     }
 
