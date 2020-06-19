@@ -4,8 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
 @Entity
@@ -18,25 +17,22 @@ public class Item {
     @NotEmpty
     private String name;
 
-    @Positive
-    @NotNull
+    @PositiveOrZero
     private Long weight;
 
-    @Positive
+    @PositiveOrZero
     private double volume;
 
-    @NotEmpty
     private String description;
     private int quantity;
 
-    @NotEmpty
     private String priority;
     private String image;
 
     public Item() {
     }
 
-    public Item(@NotEmpty String name, @Positive @NotNull Long weight, @Positive double volume, @NotEmpty String description, int quantity, @NotEmpty String priority, String image) {
+    public Item(@NotEmpty String name, @PositiveOrZero Long weight, @PositiveOrZero double volume, String description, int quantity, String priority, String image) {
         this.name = name;
         this.weight = weight;
         this.volume = volume;
@@ -50,7 +46,7 @@ public class Item {
         this.name = name;
     }
 
-    public Item(@NotEmpty String name, @Positive @NotNull Long weight) {
+    public Item(@NotEmpty String name, @PositiveOrZero Long weight) {
         this.name = name;
         this.weight = weight;
     }
