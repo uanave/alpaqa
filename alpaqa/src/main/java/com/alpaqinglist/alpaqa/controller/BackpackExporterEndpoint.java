@@ -1,12 +1,15 @@
 package com.alpaqinglist.alpaqa.controller;
 
 import com.alpaqinglist.alpaqa.logic.BackpackEditor;
+import com.alpaqinglist.alpaqa.logic.StringNormalizer;
 import com.alpaqinglist.alpaqa.persistence.domain.Backpack;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/backpacks")
@@ -21,7 +24,7 @@ public class BackpackExporterEndpoint {
     ResponseEntity<Backpack> downloadBackpack(@PathVariable Long backpackId) {
         Backpack backpack = backpackEditor.getBackpack(backpackId);
         return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=" + backpack.getName())
+                .header("Content-Disposition", "attachment; filename=" + StringNormalizer.toSlug(backpack.getName()) + "_" + LocalDate.now() + ".json")
                 .body(backpack);
     }
 
