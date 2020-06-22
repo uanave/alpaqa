@@ -38,6 +38,7 @@ public class BackpackEditor {
         if (oBackpack.isPresent()) {
             oBackpack.get().setName(backpack.getName());
             oBackpack.get().setDescription(backpack.getDescription());
+            oBackpack.get().setImage(backpack.getImage());
             return backpackRepository.save(oBackpack.get());
         } else {
             throw new EntityNotFoundException("No backpack found!");
@@ -50,6 +51,9 @@ public class BackpackEditor {
     }
 
     public List<Backpack> getAll() {
-        return backpackRepository.findAllByOrderByIdDesc();
+
+        return backpackRepository.findAll();
+
     }
+
 }
