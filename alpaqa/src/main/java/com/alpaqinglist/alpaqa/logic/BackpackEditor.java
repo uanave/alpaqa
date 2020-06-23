@@ -52,7 +52,7 @@ public class BackpackEditor {
 
     public List<Backpack> getAll() {
 
-        return backpackRepository.findAll();
+        return backpackRepository.findAllByOrderByIdDesc();
 
     }
 
