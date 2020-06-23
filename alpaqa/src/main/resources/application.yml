@@ -9,3 +9,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+backpack:
+  details:
+    backpackNameSequence: 1
+    sequenceStep: 1
