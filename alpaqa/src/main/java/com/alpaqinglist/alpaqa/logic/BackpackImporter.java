@@ -56,7 +56,8 @@ public class BackpackImporter {
     }
 
     String nameGenerator(String backpackName) {
-        backpackName = backpackName + backpackNameSequence;
+        String sequenceFormatter = "("+backpackNameSequence+")";
+        backpackName = backpackName + sequenceFormatter;
         backpackNameSequence += sequenceStep;
         return backpackName;
     }
